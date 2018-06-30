@@ -1,0 +1,30 @@
+﻿<div class="row">
+    <hr />
+    <ng-template #loadingTemplate>
+        <div class="col-xs-12">
+            Loading ...
+        </div>
+    </ng-template>
+    <div *ngIf="problem; else loadingTemplate" class="col-md-9">
+        <div *ngFor="let row of problem.rows; let rowIndex = index" class="row form-group" [ngClass]="getRowClass(rowIndex)">
+            <div *ngFor="let column of row.columns; let colIndex = index" class="col-md-1" [ngClass]="getColumnClass(colIndex)">
+                <input class="form-control"
+                       name="cell-{{row.value}}{{column.value}}"
+                       value="column.value" 
+                       [(ngModel)]="column.value" 
+                       type="number"
+                       maxlength="1"
+                       [min]="1"
+                       [max]="problem.size">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div *ngIf="validateCurrentSudoku()"class="alert alert-success">
+            <strong>Correct sudoku!</strong>
+        </div>
+        <div *ngIf="!validateCurrentSudoku()" class="alert alert-danger">
+            <strong>Incorrect sudoku!</strong>
+        </div>
+    </div>
+</div>
