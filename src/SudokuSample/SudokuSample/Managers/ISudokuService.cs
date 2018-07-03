@@ -9,5 +9,6 @@ namespace SudokuSample.Managers
     public interface ISudokuService
     {
         Task<SudokuProblem> GenerateNewProblem();
+        bool ValidateProblem(SudokuProblem problem);
     }
 }

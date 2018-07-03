@@ -17,15 +17,9 @@ namespace SudokuSample.Models.Sudoku
         /// </summary>
         public IList<Row> Rows { get; }
 
-        /// <summary>
-        /// Size of sudoku
-        /// </summary>
-        public int Size { get; }
-
-        public SudokuProblem(IList<Row> rows, int size)
+        public SudokuProblem(IList<Row> rows)
         {
             this.Rows = rows;
-            this.Size = size;
         }
     }
 }

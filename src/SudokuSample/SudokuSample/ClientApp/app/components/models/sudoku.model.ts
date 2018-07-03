@@ -10,4 +10,5 @@ export class Row {
 
 export class Column {
     value: number | null = null;
+    isReadonly: boolean = false;
 }

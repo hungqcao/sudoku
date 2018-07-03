@@ -15,15 +15,18 @@
                        type="number"
                        maxlength="1"
                        [min]="1"
-                       [max]="problem.size">
+                       [max]="9"
+                       (change)="validateCurrentSudoku()"
+                       [disabled]="column.isReadonly"
+                       >
             </div>
         </div>
     </div>
     <div class="col-md-1">
-        <div *ngIf="validateCurrentSudoku()"class="alert alert-success">
+        <div *ngIf="isProblemValid"class="alert alert-success">
             <strong>Correct sudoku!</strong>
         </div>
-        <div *ngIf="!validateCurrentSudoku()" class="alert alert-danger">
+        <div *ngIf="!isProblemValid" class="alert alert-danger">
             <strong>Incorrect sudoku!</strong>
         </div>
     </div>

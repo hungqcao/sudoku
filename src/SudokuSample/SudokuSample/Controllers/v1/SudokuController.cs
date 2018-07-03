@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SudokuSample.Managers;
 using SudokuSample.Models.Sudoku;
 
 namespace SudokuSample.Controllers.v1
@@ -11,27 +12,22 @@ namespace SudokuSample.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     public class SudokuController : Controller
     {
-        [HttpGet]
-        public SudokuProblem GetCurrentProblem()
+        private ISudokuService sudokuService;
+        public SudokuController(ISudokuService service)
         {
-            var rows = Enumerable.Range(1, 9).Select(index => new Row
-            {
-                Value = index,
-                Columns = new Column[9]
-                {
-                    new Column(1),
-                    new Column(4),
-                    new Column(7),
-                    new Column(null),
-                    new Column(null),
-                    new Column(null),
-                    new Column(null),
-                    new Column(null),
-                    new Column(null),
-                }
-            }).ToList();
+            this.sudokuService = service;
+        }
 
-            return new SudokuProblem(rows, 9);
+        [HttpGet]
+        public async Task<SudokuProblem> GetCurrentProblem()
+        {
+            return await this.sudokuService.GenerateNewProblem();
+        }
+
+        [HttpPut("status")]
+        public bool ValidateProblem([FromBody]SudokuProblem sudokuProblem)
+        {
+            return this.sudokuService.ValidateProblem(sudokuProblem);
         }
     }
 }
